@@ -1,0 +1,1256 @@
+/* ============================================
+   IMPORTAZIONE FONT PERSONALIZZATI
+============================================ */
+@font-face {
+    font-family: 'SVBasicManual';
+    src: url('font/SVBasicManual.woff2') format('woff2'),
+         url('font/SVBasicManual.woff') format('woff'),
+         url('font/SVBasicManual.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SVBasicManualBold';
+    src: url('font/SVBasicManualBold.woff2') format('woff2'),
+         url('font/SVBasicManualBold.woff') format('woff'),
+         url('font/SVBasicManualBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ============================================
+   VARIABILI GLOBALI E COLORI
+============================================ */
+:root {
+    --bg-color: #1E1E2E;
+    --text-color: #f5f5f5;
+    --accent-color: #ff4d6d;
+    --sidebands-color: #14141F;
+    --content-max-width: 1024px;
+    --content-padding: 2rem;
+    --body-font: 'SVBasicManual', monospace;
+    --heading-font: 'SVBasicManualBold', monospace;
+}
+
+/* ============================================
+   RESET CSS DI BASE
+============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   LAYOUT PRINCIPALE
+============================================ */
+body {
+    font-family: var(--body-font);
+    background-color: var(--sidebands-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* ============================================
+   WEB-AREA (CONTENITORE PRINCIPALE)
+============================================ */
+.web-area {
+    background-color: var(--bg-color);
+    width: 100%; 
+    max-width: var(--content-max-width);
+    min-height: 100vh;
+    padding: var(--content-padding);
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   STILE HEADER
+============================================ */
+header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-family: var(--body-font);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+}
+
+/* ============================================
+   MENU DI NAVIGAZIONE
+============================================ */
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.nav-menu a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 0.8rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-menu a:hover {
+    color: var(--accent-color);
+}
+
+.nav-menu a.active {
+    color: var(--accent-color);
+}
+
+.nav-menu a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.8rem;
+    right: 0.8rem;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.nav-separator {
+    margin: 0 0.2rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Verde smeraldo per link specifici del menu */
+.nav-menu a.menu-green:hover {
+    color: #10b981 !important; /* Verde smeraldo */
+}
+
+.nav-menu a.menu-green.active {
+    color: #10b981 !important; /* Verde smeraldo */
+}
+
+.nav-menu a.menu-green.active::after {
+    background-color: #10b981 !important; /* Verde smeraldo */
+}
+
+/* ============================================
+   LAYOUT GRIGLIA
+============================================ */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin: 3rem auto 0;
+}
+
+/* ============================================
+   STILE SCHEDA (CARD FILM)
+============================================ */
+.scheda {
+    position: relative;
+    aspect-ratio: 2/3;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background-color: rgba(0, 0, 0, 0.3); /* Sfondo base per schede vuote */
+}
+
+/* Effetto hover sulla scheda */
+.scheda:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    filter: grayscale(0%);
+}
+
+/* ============================================
+   STILE POSTER STRAPPATO
+============================================ */
+.torn-poster {
+    position: relative;
+    overflow: hidden;
+}
+
+.poster-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.poster-base {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.poster-texture {
+    display: none !important;
+}
+
+.torn-edge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    clip-path: polygon(0% 100%, 4% 60%, 10% 90%, 16% 40%, 22% 100%, 30% 50%, 36% 100%, 44% 30%, 52% 100%, 62% 40%, 70% 90%, 76% 30%, 84% 100%, 92% 50%, 96% 100%, 100% 10%, 100% 100%);
+    z-index: 3;
+    transform: translateY(100%);
+    transition: transform 0.3s ease 0.5s;
+}
+
+.torn-poster.active .torn-edge {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.torn-info-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(210,210,210,0.5)), url('https://www.transparenttextures.com/patterns/paper.png');
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    color: #333;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.torn-poster.active .poster-container {
+    transform: translateY(-100%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.torn-poster.active .torn-info-container {
+    transform: translateY(0);
+}
+
+.torn-info-container p {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+}
+
+.torn-info-container a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.torn-info-container a:hover {
+    opacity: 0.8;
+}
+
+.audio-preview {
+    margin-top: 1rem;
+}
+
+.audio-preview audio {
+    width: 100%;
+    height: 30px;
+}
+
+/* Override per hover sulla scheda con poster strappato */
+.torn-poster:hover .poster-base {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   STILE POSTER FILM
+============================================ */
+.poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.scheda:hover .poster {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   INFORMAZIONI SCHEDA
+============================================ */
+.scheda-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.scheda:hover .scheda-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.scheda-titolo {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.scheda-dettagli {
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+}
+
+/* ============================================
+   GESTIONE PAGINE
+============================================ */
+.page {
+    display: none; /* Tutte le pagine sono nascoste di default */
+}
+
+.page.active {
+    display: block; /* Solo la pagina attiva viene mostrata */
+}
+
+/* ============================================
+   STILE FOOTER
+============================================ */
+.site-footer {
+    margin-top: 4rem;
+    padding-top: 0.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.contact-footer {
+    margin-top: 4rem;       
+    margin-bottom: 4rem;    
+    padding-bottom: 4rem;     
+    padding-top: 0;         
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+}
+
+.contact-footer a {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0;
+    display: inline-block;
+}
+
+.contact-footer a:hover {
+    color: var(--accent-color);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+}
+
+.copyright a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.copyright a:hover {
+    color: var(--accent-color);
+}
+
+/* ============================================
+   BIO PAGE STYLING
+============================================ */
+.bio-container {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    margin: 3rem auto;
+    max-width: 900px;
+}
+
+.bio-photo-container {
+    flex: 0 0 300px;
+}
+
+.bio-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 12px;
+    filter: grayscale(50%);
+    transition: filter 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.bio-photo:hover {
+    filter: grayscale(0%);
+}
+
+.bio-text-container {
+    flex: 1;
+}
+
+.bio-text {
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.bio-text-container h2 {
+    margin-bottom: 1.5rem;
+}
+
+.bio-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.bio-button {
+    padding: 0.7rem 1.5rem;
+    background-color: var(--bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bio-button:hover {
+    background-color: rgba(255, 77, 109, 0.1);
+    border-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.bio-button img {
+    height: 20px;
+    width: auto;
+}
+
+/* ============================================
+   STILE FORM CONTATTO
+============================================ */
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.contact-intro {
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-intro a {
+    color: #00b894;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.contact-intro a:hover {
+    color: #10b981;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-input {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 77, 109, 0.15);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    transition: background-color 0.3s ease;
+}
+
+.contact-input:focus {
+    outline: none;
+    background-color: rgba(255, 77, 109, 0.25);
+}
+
+textarea.contact-input {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-family: var(--heading-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #e04463;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   ALIEN BUTTON
+============================================ */
+.alien-button {
+    position: fixed;
+    right: 2.2rem;
+    bottom: 2.2rem;
+    z-index: 100;
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.2s;
+    user-select: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 12px #ff3b3b);
+}
+.alien-button:hover {
+    filter: drop-shadow(0 0 22px #ff3b3b) brightness(1.15);
+    transform: scale(1.08);
+}
+
+/* ============================================
+   UPLOAD PAGE STYLING
+============================================ */
+.upload-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.upload-intro {
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#password-form-container {
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+#upload-content {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+/* Upload Sections */
+.upload-section {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.upload-section h4 {
+    font-family: var(--heading-font);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+}
+
+/* Category Selector */
+.category-selector {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.category-dropdown {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255, 77, 109, 0.15);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-dropdown:focus {
+    outline: none;
+    background-color: rgba(255, 77, 109, 0.25);
+    border: 1px solid var(--accent-color);
+}
+
+.category-dropdown option {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Upload Forms */
+.upload-form {
+    margin-top: 2rem;
+}
+
+.project-form {
+    width: 100%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* File Input Styling */
+.file-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px dashed rgba(255, 77, 109, 0.3);
+    border-radius: 8px;
+    background-color: rgba(255, 77, 109, 0.05);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input:hover {
+    border-color: var(--accent-color);
+    background-color: rgba(255, 77, 109, 0.1);
+}
+
+.file-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: rgba(255, 77, 109, 0.15);
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.reset-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Logout Section */
+.logout-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 77, 109, 0.2);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design for Upload Page */
+@media (max-width: 768px) {
+    .upload-container {
+        padding: 1rem;
+    }
+    
+    .upload-section {
+        padding: 1.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .form-actions button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+============================================ */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+    
+    .scheda-titolo {
+        font-size: 1rem;
+    }
+    
+    .scheda-dettagli {
+        font-size: 0.7rem;
+    }
+    
+    .web-area {
+        padding: 1rem;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+        font-size: 0.8rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .alien-button {
+        bottom: 20px;
+        right: 20px;
+        font-size: 2rem;
+    }
+    
+    .bio-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .bio-photo-container {
+        flex: 0 0 auto;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+}
+
+/* ============================================
+   GRIGLIA LIBRARIES (SCHEDE QUADRATE 1:1) - RIDOTTE A 2/3
+============================================ */
+.libraries-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.library-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    max-width: 320px;
+    min-width: 320px;
+    min-height: 320px;
+    max-height: 320px;
+    margin: 0 1rem 2rem 1rem;
+}
+
+.library-card .poster-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    min-height: 320px;
+    max-width: 320px;
+    max-height: 320px;
+}
+
+.library-card .poster-base {
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    min-height: 320px;
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.library-card:hover .poster-base {
+    transform: scale(1.1);
+}
+
+.library-card .torn-info-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: white;
+    padding: 1.5rem 1rem 1rem;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 120px;
+}
+
+.library-card:hover .torn-info-container {
+    transform: translateY(-18px);
+}
+
+.library-card .scheda-titolo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.library-card .torn-info-container p {
+    margin: 0.4rem 0;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* Player audio classico in basso */
+.library-card .classic-audio-player {
+    width: 100%;
+    margin-top: 1.2rem;
+    margin-bottom: 0.2rem;
+    align-self: flex-end;
+}
+.library-card .classic-audio-player audio {
+    width: 100%;
+    height: 32px;
+    background: #222;
+    border-radius: 6px;
+}
+
+/* ============================================
+   PLAYER AUDIO CIRCOLARE - RIDOTTO
+============================================ */
+.circular-player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 0.5rem;
+}
+
+.player-circle {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.player-circle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.player-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.player-button:hover {
+    background: white;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-icon {
+    color: #333;
+    font-size: 0.9rem;
+    margin-left: 1px;
+    transition: all 0.3s ease;
+}
+
+.player-circle.playing .play-icon {
+    transform: scale(0.8);
+}
+
+.player-circle.playing .play-icon::before {
+    content: "⏸";
+}
+
+.player-progress {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top: 2px solid #00ff88;
+    transform: rotate(-90deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.player-circle.playing .player-progress {
+    opacity: 1;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(-90deg);
+    }
+    to {
+        transform: rotate(270deg);
+    }
+}
+
+/* ============================================
+   PAGINA COMMERCIAL - LAYOUT COMPATTO CON POSTER VERTICALI
+============================================ */
+.commercial-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.commercial-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.commercial-card:hover {
+    transform: translateX(16px);
+}
+
+.poster-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 260px;
+}
+
+.poster-img {
+    width: 260px;
+    height: 370px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    background: #181818;
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.poster-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.play-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #181818;
+    color: #fff;
+    font-size: 1.6rem;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 2;
+}
+
+.play-btn:hover {
+    background: #00b894;
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.info-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.project-info {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    min-width: 260px;
+    max-width: 400px;
+    color: #fff;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+    margin-top: 2.2rem;
+}
+
+.project-details p {
+    margin: 0.5rem 0;
+    font-size: 1.05rem;
+    color: #e0e0e0;
+}
+
+.project-details strong {
+    color: #00b894;
+    min-width: 90px;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .commercial-card {
+        gap: 1.5rem;
+    }
+    .poster-img {
+        width: 180px;
+        height: 260px;
+    }
+    .project-info {
+        padding: 1.2rem 1.2rem 1rem 1.2rem;
+        min-width: 180px;
+        max-width: 90vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .commercial-card {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2.5rem;
+    }
+    .poster-col {
+        min-width: 0;
+        width: 100%;
+    }
+    .poster-img {
+        width: 90vw;
+        max-width: 400px;
+        height: 220px;
+        margin-bottom: 0.8rem;
+    }
+    .play-btn {
+        margin-bottom: 1.2rem;
+    }
+    .info-col {
+        width: 100%;
+        justify-content: center;
+    }
+    .project-info {
+        width: 90vw;
+        max-width: 400px;
+        min-width: 0;
+        padding: 1.2rem 1.2rem 1rem 1.2rem;
+    }
+    .play-btn {
+        right: 12px;
+        bottom: 12px;
+    }
+}
+
+/* Info card invisibile */
+.vertical-info {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    min-height: 320px;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #fff;
+}
+
+/* Poster orizzontale più grande */
+.horizontal-poster {
+    width: 500px;
+    height: 280px;
+}
+
+/* Sfasatura tra progetti pari/dispari */
+.offset-card {
+    margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+    .horizontal-poster {
+        width: 90vw;
+        height: 160px;
+    }
+    .offset-card {
+        margin-top: 0;
+    }
+    .vertical-info {
+        width: 90vw;
+        min-height: 0;
+        max-width: 100%;
+    }
+}
+
+.trailer-link-bottom-right {
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    z-index: 2;
+}
+
+.trailer-link-bottom-right a {
+    color: #e74c3c;
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 1.08rem;
+    transition: color 0.2s;
+}
+
+.trailer-link-bottom-right a:hover {
+    color: #c0392b;
+}
+
+.ufo-button {
+    position: fixed;
+    left: 2.2rem;
+    bottom: 2.2rem;
+    z-index: 100;
+    font-size: 2.2rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.2s;
+    user-select: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 8px #ff3b3b);
+}
+.ufo-button:hover {
+    filter: drop-shadow(0 0 16px #ff3b3b) brightness(1.15);
+    transform: scale(1.08);
+} 
